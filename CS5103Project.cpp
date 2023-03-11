@@ -115,9 +115,10 @@ int main()
                 cout << "Please enter VALID TIME" << endl;
             }
         } while (!isValidTime(hr, min));
+        cout << endl;
         cout << "Your DATE: " << month << "/" << day << "/" << year << endl;
         cout << "Your TIME: " << hr << ":" << min << endl;
-        cout << endl;
+        
         int conyear = year, conmonth = month, conday = day;
         int conhr = hr, conmin = min;
         if (options == 1)
@@ -193,7 +194,7 @@ int main()
             }
         }
         cout << "CONVERTED DATE: " << conmonth << "/" << conday << "/" << conyear << endl;
-        cout << "CONVERTED TIME: " << conhr << ":" << conmin << endl;
+        cout << "CONVERTED TIME: " << conhr << ":" << conmin << endl<<endl;
         
     }
     
