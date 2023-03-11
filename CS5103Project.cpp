@@ -65,34 +65,133 @@ bool isValidTime(int hr, int min)
 int main()
 {
 
-    string date;
-    bool dateVal = false;
-    int year, month, day;
+
+    
+    int options = 0;
+    cout << "RAJ PATEL - sgs391 - CS5103Project - Milestone1";
     cout << "***** Enter the details asked below ***** \n Date Format: mm/dd/yyy \t Time Format 24 hour clock: hh:mm\n\n";
-    do {
-        cout << "Enter DATE you want to convert:(mm/dd/yyyy): ";
-        cin >> date; // date can be 2005:03:09 or 2005/04/02 or whatever
-        stringstream ss(date);
-        char ch;
-        ss >> month >> ch >> day >> ch >> year;
-        if (!isValidDate(day, month, year))
+    while (options != 5)
+    {
+        string date;
+        bool dateVal = false;
+        int year=0, month=0, day=0;
+
+        cout << "Please enter your choice \n1. CST -> EST \n2. PST -> EST \n3. EXIT \nINPUT: ";
+        cin >> options;
+        if (options == 3)
         {
-            cout << "Please enter VALID DATE"<<endl;
+            exit(0);
         }
- 
-    } while (!isValidDate(day, month, year));
-    cout << "Your input date: " << month << "/" << day << "/" << year <<endl;
- 
-    string time;
-    int hr, min;
-    do {
-        cout << "Enter TIME you want to convert: ";
-        cin >> time;
-        stringstream sa(time);
-        char ch1;
-        sa >> hr >> ch1 >> min;
-    } while (!isValidTime(hr,min));
-    cout << "Your input time: " << hr << ":" << min<< endl;
+
+        do {
+            cout << "Enter DATE you want to convert:(mm/dd/yyyy): ";
+            cin >> date; // date can be 2005:03:09 or 2005/04/02 or whatever
+            stringstream ss(date);
+            char ch;
+            ss >> month >> ch >> day >> ch >> year;
+            if (!isValidDate(day, month, year))
+            {
+                cout << "Please enter VALID DATE" << endl;
+            }
+
+        } while (!isValidDate(day, month, year));
+
+        string time;
+        int hr=0, min=0;
+        
+        do {
+            cout << "Enter TIME you want to convert: ";
+            cin >> time;
+            stringstream sa(time);
+            char ch1;
+            sa >> hr >> ch1 >> min;
+            if (!isValidTime(hr, min))
+            {
+                cout << "Please enter VALID TIME" << endl;
+            }
+        } while (!isValidTime(hr, min));
+        cout << "Your DATE: " << month << "/" << day << "/" << year << endl;
+        cout << "Your TIME: " << hr << ":" << min << endl;
+        cout << endl;
+        int conyear = year, conmonth = month, conday = day;
+        int conhr = hr, conmin = min;
+        if (options == 1)
+        {
+            conhr = hr + 1;
+            conmin = min;
+
+            if (conhr > 23) {
+                conhr = conhr - 24;
+                conday = conday + 1; // if (m == 4 || m == 6 || m == 9 || m == 11)
+                if (conday > 30 && (conmonth == 4 || conmonth == 6 || conmonth == 9 || conmonth == 11))
+                {
+                    conday = conday - 30;
+                        conmonth = conmonth + 1;
+                }
+                else if (conday > 31 && (conmonth == 1 || conmonth == 3 || conmonth == 5 || conmonth == 7 || conmonth == 8 || conmonth == 10))
+                {
+                    conday = conday - 31;
+                    conmonth = conmonth + 1;
+                }
+                else if (conday > 31 && conmonth == 12)
+                {
+                    conday = conday - 31;
+                    conmonth = 1;
+                    conyear = conyear + 1;
+                }
+                else if (isLeap(conyear) && conday > 29 && conmonth == 2)
+                {
+                    conday = conday - 29;
+                    conmonth = conmonth + 1 ;
+                }
+                else if (!isLeap(conyear) && conday > 28 && conmonth == 2)
+                {
+                    conday = conday - 28;
+                    conmonth = conmonth + 1;
+                }
+           }
+        }
+        if (options == 2)
+        {
+            conhr = hr + 3;
+            conmin = min;
+
+            if (conhr > 23) {
+                conhr = conhr - 24;
+                conday = conday + 1; // if (m == 4 || m == 6 || m == 9 || m == 11)
+                if (conday > 30 && (conmonth == 4 || conmonth == 6 || conmonth == 9 || conmonth == 11))
+                {
+                    conday = conday - 30;
+                    conmonth = conmonth + 1;
+                }
+                else if (conday > 31 && (conmonth == 1 || conmonth == 3 || conmonth == 5 || conmonth == 7 || conmonth == 8 || conmonth == 10))
+                {
+                    conday = conday - 31;
+                    conmonth = conmonth + 1;
+                }
+                else if (conday > 31 && conmonth == 12)
+                {
+                    conday = conday - 31;
+                    conmonth = 1;
+                    conyear = conyear + 1;
+                }
+                else if (isLeap(conyear) && conday > 29 && conmonth == 2)
+                {
+                    conday = conday - 29;
+                    conmonth = conmonth + 1;
+                }
+                else if (!isLeap(conyear) && conday > 28 && conmonth == 2)
+                {
+                    conday = conday - 28;
+                    conmonth = conmonth + 1;
+                }
+            }
+        }
+        cout << "CONVERTED DATE: " << conmonth << "/" << conday << "/" << conyear << endl;
+        cout << "CONVERTED TIME: " << conhr << ":" << conmin << endl;
+        
+    }
+    
 
 }
 
