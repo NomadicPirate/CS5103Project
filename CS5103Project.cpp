@@ -82,6 +82,11 @@ int main()
         {
             exit(0);
         }
+        else if (options != 3 && options !=2 && options!=1)
+        {
+            cout<<"Enter Valid Input Options.!!\n";
+            break;
+        }
 
         do {
             cout << "Enter DATE you want to convert:(mm/dd/yyyy): ";
