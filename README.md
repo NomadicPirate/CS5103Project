@@ -6,3 +6,4 @@ This project is made in Visua; Studio Solution I am planning to improve this pro
 This program in completely made in C++.
 
 I have added almost every instructions need. I have attached screenshot with the pdf submitted showing few error handling as well as proper runnning of the program.
+-I have added around 7-10 Test Cases with pdf attached. Please Run the Solution in Visual Studio.
