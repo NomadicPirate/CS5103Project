@@ -1,100 +1,127 @@
 // CS5103Project.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+//RAJ PATEL : SGS391
 
-#include <string>       // std::string
-#include <iostream>     // std::cout
-#include <sstream>      // std::stringstream
+#include <iostream>
+#include <string>
+#include <ctime>
+
 using namespace std;
-const int MAX_VALID_YR = 9999;
-const int MIN_VALID_YR = 1800;
 
-bool isLeap(int year)
-{
-    // Return true if year 
-    // is a multiple of 4 and
-    // not multiple of 100.
-    // OR year is multiple of 400.
-    return (((year % 4 == 0) &&
-        (year % 100 != 0)) ||
-        (year % 400 == 0));
+bool is_leap_year(int year) {
+    return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
 }
-bool isValidDate(int d, int m, int y)
-{
-    // If year, month and day 
-    // are not in given range
-    if (y > MAX_VALID_YR ||
-        y < MIN_VALID_YR)
-        return false;
-    if (m < 1 || m > 12)
-        return false;
-    if (d < 1 || d > 31)
-        return false;
 
-    // Handle February month 
-    // with leap year
-    if (m == 2)
-    {
-        if (isLeap(y))
-            return (d <= 29);
-        else
-            return (d <= 28);
+bool is_valid_date(int year, int month, int day) {
+    if (year < 1900 || year > 2100) {
+        cout << "Invalid year.\n";
+        return false;
+    }
+    if (month < 1 || month > 12) {
+        cout << "Invalid month.\n";
+        return false;
+    }
+    if (day < 1 || day > 31) {
+        cout << "Invalid day.\n";
+        return false;
     }
 
-    // Months of April, June, 
-    // Sept and Nov must have 
-    // number of days less than
-    // or equal to 30.
-    if (m == 4 || m == 6 ||
-        m == 9 || m == 11)
-        return (d <= 30);
+    int max_days = 31;
+    if (month == 4 || month == 6 || month == 9 || month == 11) {
+        max_days = 30;
+    }
+    else if (month == 2) {
+        max_days = is_leap_year(year) ? 29 : 28;
+    }
+
+    if (day > max_days) {
+        cout << "Invalid day for the given month and year.\n";
+        return false;
+    }
 
     return true;
 }
-bool isValidTime(int hr, int min)
-{
-    if (hr >= 0 && hr < 24 && min >= 0 && min < 60)
-    {
-        return true;
+
+bool is_valid_time(int hour, int minute, int second) {
+    if (hour < 0 || hour >= 24) {
+        cout << "Invalid hour.\n";
+        return false;
     }
-    else
-    {
+    if (minute < 0 || minute >= 60) {
+        cout << "Invalid minute.\n";
+        return false;
+    }
+    if (second < 0 || second >= 60) {
+        cout << "Invalid second.\n";
         return false;
     }
 
+    return true;
 }
-int main()
-{
 
-    string date;
-    bool dateVal = false;
-    int year, month, day;
-    cout << "***** Enter the details asked below ***** \n Date Format: mm/dd/yyy \t Time Format 24 hour clock: hh:mm\n\n";
-    do {
-        cout << "Enter DATE you want to convert:(mm/dd/yyyy): ";
-        cin >> date; // date can be 2005:03:09 or 2005/04/02 or whatever
-        stringstream ss(date);
-        char ch;
-        ss >> month >> ch >> day >> ch >> year;
-        if (!isValidDate(day, month, year))
-        {
-            cout << "Please enter VALID DATE"<<endl;
+int main() {
+    // Get user input
+    cout << "Enter date and time in CST format (YYYY-MM-DD HH:MM:SS): ";
+    string cst_time_str;
+    getline(cin, cst_time_str);
+
+    // Parse input string
+    int year, month, day, hour, minute, second;
+    if (sscanf_s(cst_time_str.c_str(), "%d-%d-%d %d:%d:%d", &year, &month, &day, &hour, &minute, &second) != 6) {
+        cout << "Invalid date and time format.\n";
+        return 1;
+    }
+
+    // Validate date and time
+    if (!is_valid_date(year, month, day)) {
+        return 1;
+    }
+    if (!is_valid_time(hour, minute, second)) {
+        return 1;
+    }
+
+    // Convert to EST
+    hour += 1; // Add one hour for time zone difference
+    if (hour >= 24) { // Adjust for rollover to next day
+        hour -= 24;
+        day += 1;
+        if (!is_valid_date(year, month, day)) { // Check if the new date is valid
+            if (month == 12) { // If it's the last day of December, rollover to next year
+                year += 1;
+                month = 1;
+                day = 1;
+            }
+            else { // Otherwise, rollover to next month
+                month += 1;
+                day = 1;
+            }
+            if (!is_valid_date(year, month, day)) { // Check if the new date is valid
+                return 1;
+            }
         }
- 
-    } while (!isValidDate(day, month, year));
-    cout << "Your input date: " << month << "/" << day << "/" << year <<endl;
- 
-    string time;
-    int hr, min;
-    do {
-        cout << "Enter TIME you want to convert: ";
-        cin >> time;
-        stringstream sa(time);
-        char ch1;
-        sa >> hr >> ch1 >> min;
-    } while (!isValidTime(hr,min));
-    cout << "Your input time: " << hr << ":" << min<< endl;
+    }
+    // Calculate day
 
+    // Calculate day of the week
+    tm timeinfo = { 0 };
+    timeinfo.tm_year = year - 1900;
+    timeinfo.tm_mon = month - 1;
+    timeinfo.tm_mday = day;
+    timeinfo.tm_hour = hour;
+    timeinfo.tm_min = minute;
+    timeinfo.tm_sec = second;
+    time_t rawtime = mktime(&timeinfo);
+    tm localtime = { 0 };
+    localtime_s(&localtime, &rawtime);
+    char day_str[10];
+    strftime(day_str, 10, "%A", &localtime);
+
+    // Print result
+    printf("The date and time in EST is: %s, %04d-%02d-%02d %02d:%02d:%02d\n", day_str, year, month, day, hour, minute, second);
+
+    return 0;
 }
+
+
 
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
