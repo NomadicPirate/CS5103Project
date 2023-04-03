@@ -42,19 +42,40 @@ The program has been tested with the following valid and invalid test cases:
 
 ### Outputs
 
-#### Valid Test Cases:
-"2023-04-02 11:30:00" (CST) -> "2023-04-02 12:30:00" (EST)<br>
-"1904-02-29 23:00:00" (CST) -> "1904-03-01 00:00:00" (EST)<br>
-"2100-12-31 23:59:59" (CST) -> "2101-01-01 00:59:59" (EST)<br>
+#### Valid test cases:
+<li>
+Enter date and time in CST format (YYYY-MM-DD HH:MM:SS): 2022-12-31 23:59:59<br>
+Expected output: The date and time in EST is: Sunday, 2023-01-01 00:59:59
+</li>
+<li>
+Enter date and time in CST format (YYYY-MM-DD HH:MM:SS): 2023-03-01 12:30:00<br>
+Expected output: The date and time in EST is: Thursday, 2023-03-01 13:30:00
+</li>
+<li>
+Enter date and time in CST format (YYYY-MM-DD HH:MM:SS): 2023-07-04 00:00:01<br>
+Expected output: The date and time in EST is: Tuesday, 2023-07-04 01:00:01
+</li>
+<li>
+Enter date and time in CST format (YYYY-MM-DD HH:MM:SS): 2023-11-05 23:59:59<br>
+Expected output: The date and time in EST is: Sunday, 2023-11-06 00:59:59
+</li>
 
-#### Invalid Test Cases:
-"2023-04-31 11:30:00" -> "Invalid date"<br>
-"2023-13-01 11:30:00" -> "Invalid date"<br>
-"2023-04-02 24:00:00" -> "Invalid time"<br>
-"2023-04-02 11:60:00" -> "Invalid time"<br>
-"2023-04-02 11:30:60" -> "Invalid time"<br>
-"1899-12-31 23:59:59" -> "Invalid year"<br>
-"2101-01-01 00:00:00" -> "Invalid year"<br>
-"2023-02-29 11:30:00" -> "Invalid date"<br>
-<br><hr>
+#### Invalid test cases:
+<li>
+Enter date and time in CST format (YYYY-MM-DD HH:MM:SS): 2021-12-31 23:59:59<br>
+Expected output: Invalid year.
+</li>
+<li>
+Enter date and time in CST format (YYYY-MM-DD HH:MM:SS): 2023-02-29 12:00:00<br>
+Expected output: Invalid day for the given month and year.
+</li>
+<li>
+Enter date and time in CST format (YYYY-MM-DD HH:MM:SS): 2023-04-31 00:00:00<br>
+Expected output: Invalid day for the given month and year.
+</li>
+<li>
+Enter date and time in CST format (YYYY-MM-DD HH:MM:SS): 2023-01-01 24:00:00<br>
+Expected output: Invalid hour.
+  </li>
+<br><hr><br>
 Updated the previous code using the <ctime> header file as well as updated regarding the requirement changes. Added a few more test cases then last time and made changes as per the assignment requirements.
