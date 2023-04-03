@@ -9,15 +9,14 @@ The program will output the converted date and time in the format "YYYY-MM-DD HH
 
 ### Validations
 The program performs the following validations:
-<li>
-The year must be between 1900 and 2100.
-The month must be between 1 and 12.
-The day must be a valid day for the given month and year.
-The hour must be between 0 and 23.
-The minute must be between 0 and 59.
-The second must be between 0 and 59.
-If any of these validations fail, the program will output an "Invalid" message.
-</li>
+<li> The year must be between 1900 and 2100. </li>
+<li> The month must be between 1 and 12.</li>
+<li>The day must be a valid day for the given month and year.</li>
+<li>The hour must be between 0 and 23.</li>
+<li>The minute must be between 0 and 59.</li>
+<li>The second must be between 0 and 59.</li>
+<li>If any of these validations fail, the program will output an "Invalid" message.</li>
+
 
 ### Test Cases
 The program has been tested with the following valid and invalid test cases:
