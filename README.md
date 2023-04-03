@@ -1,5 +1,7 @@
 # CS5103Project - RAJ PATEL - sgs391
-This program takes a date and time in the format "YYYY-MM-DD HH:MM:SS" and converts it from Central Standard Time (CST) to Eastern Standard Time (EST).
+The program will take user input of a date and time in the format "YYYY-MM-DD HH:MM:SS" and convert it from Central Standard Time (CST) to Eastern Standard Time (EST). If the input is valid, the program will output the converted date and time in the format "YYYY-MM-DD HH:MM:SS" in Eastern Standard Time (EST). If the input is invalid, the program will output an "Invalid" message with a brief explanation of the invalid input.
+<br><hr>
+The program also includes validations to ensure that the input follows certain rules, such as the year being between 1900 and 2100, the month being between 1 and 12, and the day being valid for the given month and year. If any of these validations fail, the program will output an "Invalid" message with a brief explanation of the invalid input.
 
 ### Usage
 Run the program in a C++ compiler.
