@@ -1,11 +1,13 @@
 # CS5103Project - RAJ PATEL - sgs391
 This program takes a date and time in the format "YYYY-MM-DD HH:MM:SS" and converts it from Central Standard Time (CST) to Eastern Standard Time (EST).
 
-Usage
+# Usage
 Run the program in a C++ compiler.
 Enter the date and time in the format "YYYY-MM-DD HH:MM:SS".
 The program will output the converted date and time in the format "YYYY-MM-DD HH:MM:SS" in Eastern Standard Time (EST).
-Validations
+
+
+# Validations
 The program performs the following validations:
 
 The year must be between 1900 and 2100.
