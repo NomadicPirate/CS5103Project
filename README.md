@@ -42,12 +42,12 @@ The program has been tested with the following valid and invalid test cases:
 
 ### Outputs
 
-Valid Test Cases:
+#### Valid Test Cases:
 "2023-04-02 11:30:00" (CST) -> "2023-04-02 12:30:00" (EST)<br>
 "1904-02-29 23:00:00" (CST) -> "1904-03-01 00:00:00" (EST)<br>
 "2100-12-31 23:59:59" (CST) -> "2101-01-01 00:59:59" (EST)<br>
 
-Invalid Test Cases:
+#### Invalid Test Cases:
 "2023-04-31 11:30:00" -> "Invalid date"<br>
 "2023-13-01 11:30:00" -> "Invalid date"<br>
 "2023-04-02 24:00:00" -> "Invalid time"<br>
