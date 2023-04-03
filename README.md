@@ -23,13 +23,13 @@ The program performs the following validations:
 ### Test Cases
 The program has been tested with the following valid and invalid test cases:
 
-### Valid Test Cases:
+#### Valid Test Cases:
 
 "2023-04-02 11:30:00" (normal case)<br>
 "1904-02-29 23:00:00" (leap year)<br>
 "2100-12-31 23:59:59" (end of century)<br>
 
-### Invalid Test Cases:
+#### Invalid Test Cases:
 
 "2023-04-31 11:30:00" (invalid day for the given month and year)<br>
 "2023-13-01 11:30:00" (invalid month)<br>
@@ -56,5 +56,5 @@ The program has been tested with the following valid and invalid test cases:
 "1899-12-31 23:59:59" -> "Invalid year"<br>
 "2101-01-01 00:00:00" -> "Invalid year"<br>
 "2023-02-29 11:30:00" -> "Invalid date"<br>
-
+<br><hr>
 Updated the previous code using the <ctime> header file as well as updated regarding the requirement changes. Added a few more test cases then last time and made changes as per the assignment requirements.
