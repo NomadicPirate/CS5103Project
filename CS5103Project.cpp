@@ -57,7 +57,6 @@ bool is_valid_time(int hour, int minute, int second) {
 
     return true;
 }
-
 int main() {
     // Get user input
     cout << "Enter date and time in CST format (YYYY-MM-DD HH:MM:SS): ";
@@ -79,8 +78,30 @@ int main() {
         return 1;
     }
 
+    // Daylight Saving mode
+    bool is_dst = false;
+    string dst_input;
+    cout << "Is Daylight Saving Time active? (Y/N): ";
+    getline(cin, dst_input);
+    if (dst_input == "Y" || dst_input == "y") {
+        int dst_start_month, dst_start_day, dst_start_hour, dst_end_month, dst_end_day, dst_end_hour;
+        cout << "Enter the Daylight Saving starting date and time in CST format (MM DD HH): ";
+        cin >> dst_start_month >> dst_start_day >> dst_start_hour;
+        cout << "Enter the Daylight Saving ending date and time in CST format (MM DD HH): ";
+        cin >> dst_end_month >> dst_end_day >> dst_end_hour;
+
+        // Check if current date is within DST
+        if ((month > dst_start_month || (month == dst_start_month && (day > dst_start_day || (day == dst_start_day && hour >= dst_start_hour))))
+            && (month < dst_end_month || (month == dst_end_month && (day < dst_end_day || (day == dst_end_day && hour < dst_end_hour))))) {
+            is_dst = true;
+        }
+    }
+
     // Convert to EST
     hour += 1; // Add one hour for time zone difference
+    if (is_dst) {
+        hour += 1; // Add one more hour for Daylight Saving Time
+    }
     if (hour >= 24) { // Adjust for rollover to next day
         hour -= 24;
         day += 1;
@@ -99,7 +120,6 @@ int main() {
             }
         }
     }
-    // Calculate day
 
     // Calculate day of the week
     tm timeinfo = { 0 };
@@ -113,6 +133,7 @@ int main() {
     tm localtime = { 0 };
     localtime_s(&localtime, &rawtime);
     char day_str[10];
+
     strftime(day_str, 10, "%A", &localtime);
 
     // Print result
